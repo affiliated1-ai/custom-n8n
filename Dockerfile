@@ -3,12 +3,11 @@ FROM n8nio/n8n:latest
 # Switch to root to install system packages
 USER root
 
-# Install ffmpeg, fontconfig, and required fonts
-RUN apt-get update && apt-get install -y \
+# Install ffmpeg, fontconfig, and ttf-dejavu using Alpine's package manager
+RUN apk update && apk add --no-cache \
     ffmpeg \
     fontconfig \
-    font-dejavu \
-    && rm -rf /var/lib/apt/lists/*
+    ttf-dejavu
 
 # Switch back to n8n user
 USER node
