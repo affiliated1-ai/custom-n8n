@@ -1,13 +1,14 @@
 FROM n8nio/n8n:latest
 
-# Switch to root to install system packages
+# Switch to root user to install system binaries
 USER root
 
-# Install ffmpeg, fontconfig, and ttf-dejavu using Alpine's package manager
-RUN apk update && apk add --no-cache \
+# Install FFmpeg and font packages using Debian's apt-get
+RUN apt-get update && apt-get install -y \
     ffmpeg \
     fontconfig \
-    ttf-dejavu
+    fonts-dejavu \
+    && rm -rf /var/lib/apt/lists/*
 
-# Switch back to n8n user
+# Switch back to the standard n8n user
 USER node
