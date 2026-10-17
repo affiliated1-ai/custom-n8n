@@ -1,8 +1,14 @@
 FROM n8nio/n8n:latest
 
-# Switch to root to install FFmpeg
+# Switch to root to install system packages
 USER root
-RUN apk add --no-cache ffmpeg fontconfig font-dejavu
 
-# Switch back to node user for execution security
+# Install ffmpeg, fontconfig, and required fonts
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    fontconfig \
+    font-dejavu \
+    && rm -rf /var/lib/apt/lists/*
+
+# Switch back to n8n user
 USER node
